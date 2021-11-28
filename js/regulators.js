@@ -1,25 +1,26 @@
 class Regulator {
-    constructor(cell) {
-        this.cell = cell;
+    constructor(baseline) {
+        this.baseline = baseline;
         this.regulatedBy = [];
         this.regulates = [];
-        this.previousActivation = 0;
-        this.currentActivation = 0;
+        this.activation = 0;
     }
 
     // Add an input causing this regulator to be actived/inhibited by another body
-    addInput(activator, weight, baseline) {
-        this.regulatedBy.push([activator, weight, baseline]);
+    addInput(activator, weight) {
+        this.regulatedBy.push([activator, weight]);
     }
 
     // Add an output that this regulator regulate
-    addOutput(activator, weight, baseline) {
-        this.regulates.push([activator, weight, baseline]);
+    addOutput(activator, weight) {
+        this.regulates.push([activator, weight]);
     }
 
-    update() {
-        this.currentActivation = 0;
-        this.regulatedBy.forEach(obj => )
-        this.previousActivation = this.currentActivation;
+    update(substrates) {
+        const activation = this.baseline;
+        this.regulatedBy.forEach(([activator, weight]) => {
+            activation += substrates[activator] * weight
+        });
+        this.activation = sigmoid(activation);
     }
 }
