@@ -1,7 +1,7 @@
 class Cell {
     constructor() {
-        this.energy = 100;
-        this.protein = 100;
+        this.energy = new Chemical(100);
+        this.protein = new Chemical(100);
         this.regulators = [
             new Regulator(),
             new Regulator(),
