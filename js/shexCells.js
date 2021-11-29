@@ -1,9 +1,13 @@
+const MAX_ENERGY = 1000;
+const MAX_PROTEIN = 1000;
+
+
 class Cell {
     constructor() {
         this.energy = 100;
         this.protein = 100;
         this.regulators = [
-            new Regulator(0),
+            new Regulator(10),
             new Regulator(0),
             new Regulator(0),
             new Regulator(0),
@@ -13,8 +17,8 @@ class Cell {
     update() {
         // Map inputs to their current amount/activation level
         const inputs = this._getRegulatorActivation();
-        inputs.energy = this.energy,
-        inputs.protein = this.protein,
+        inputs.energy = this.energy / MAX_ENERGY;
+        inputs.protein = this.protein / MAX_PROTEIN;
 
         // Regulators activated/inhibited by inputs
         this.regulators.forEach(regulator => regulator.updateActivation(inputs))
