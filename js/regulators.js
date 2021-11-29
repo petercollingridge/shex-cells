@@ -12,15 +12,21 @@ class Regulator {
     }
 
     // Add an output that this regulator regulate
-    addOutput(activator, weight) {
-        this.regulates.push([activator, weight]);
+    addOutput(target, weight) {
+        this.regulates.push([target, weight]);
     }
 
-    update(substrates) {
-        const activation = this.baseline;
+    updateActivation(substrates) {
+        let activation = this.baseline;
         this.regulatedBy.forEach(([activator, weight]) => {
             activation += substrates[activator] * weight
         });
         this.activation = sigmoid(activation);
+    }
+
+    updateOutputs(outputs) {
+        this.regulates.forEach(([target, weight]) => {
+            outputs[target] += this.activation * weight;
+        });
     }
 }
